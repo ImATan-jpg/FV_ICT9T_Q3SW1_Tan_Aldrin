@@ -109,55 +109,52 @@
     </div>
 
     <script>
-        
-        const rates = {
-            USD: 1.00
-            JPY: 148.41
-            GBP: 0.79
-            PHP: 55.86
-            EUR: 0.92
-            THB: 35.63
-        };
+    const rates = {
+        USD: 1.00,
+        JPY: 148.41,
+        GBP: 0.79,
+        PHP: 55.86,
+        EUR: 0.92,
+        THB: 35.63
+    };
 
-        const flags = {
-            USD: 'us',
-            JPY: 'jp',
-            GBP: 'gb',
-            PHP: 'ph',
-            EUR: 'eu',
-            THB: 'th'
-        };
+    const flags = {
+        USD: 'us',
+        JPY: 'jp',
+        GBP: 'gb',
+        PHP: 'ph',
+        EUR: 'eu',
+        THB: 'th'
+    };
 
-        function updateFlag(selectId, flagId) {
-            const select = document.getElementById(selectId);
-            const flag = document.getElementById(flagId);
-            const countryCode = flags[select.value];
-            flag.src = `https://flagcdn.com/w40/${countryCode}.png`;
+    function updateFlag(selectId, flagId) {
+        const select = document.getElementById(selectId);
+        const flag = document.getElementById(flagId);
+        const countryCode = flags[select.value];
+        flag.src = `https://flagcdn.com/w40/${countryCode}.png`;
+    }
+
+    function convert(direction) {
+        const amount1 = document.getElementById('amount1');
+        const amount2 = document.getElementById('amount2');
+        const currency1 = document.getElementById('currency1').value;
+        const currency2 = document.getElementById('currency2').value;
+
+        if (direction === 1) {
+            const amountInUSD = parseFloat(amount1.value) / rates[currency1];
+            amount2.value = (amountInUSD * rates[currency2]).toFixed(2);
         }
+    }
 
-        function convert(direction) {
-            const amount1 = document.getElementById('amount1');
-            const amount2 = document.getElementById('amount2');
-            const currency1 = document.getElementById('currency1').value;
-            const currency2 = document.getElementById('currency2').value;
+    document.getElementById('currency1').addEventListener('change', function() {
+        updateFlag('currency1', 'flag1');
+    });
 
-            if (direction === 1) {
-                const amountInUSD = parseFloat(amount1.value) / rates[currency1];
-                amount2.value = (amountInUSD * rates[currency2]).toFixed(2);
-            }
-        }
+    document.getElementById('currency2').addEventListener('change', function() {
+        updateFlag('currency2', 'flag2');
+    });
 
-        
-        document.getElementById('currency1').addEventListener('change', function() {
-            updateFlag('currency1', 'flag1');
-        });
-
-        document.getElementById('currency2').addEventListener('change', function() {
-            updateFlag('currency2', 'flag2');
-        });
-
-        
-        convert(1);
-    </script>
+    convert(1);
+</script>
 </body>
-</html>SS
+</html>
